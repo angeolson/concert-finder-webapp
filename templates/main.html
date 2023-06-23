@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<style>
+form {
+    margin: auto;
+    width: 35%;
+}.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+*{font-family: Montserrat;}
+</style>
+<div class="intro">
+<head>
+<title>Concert Lineup Generator</title>
+</head>
+Welcome to your Concert Lineup Generator!<br>
+    A few things to note:<br>
+    1. The data is current as of June 22, 2023 <br>
+    2. You must select at least one day of the week <br>
+    3. Genre/related artist information is taken from Spotify; if the artist is so underground that Spotify doesn't have this data, then you're out of luck. To see all results, leave the genre field blank. <br>
+    4. If you want to search on multiple genre keywords, separate with a ':'. For example, to search for both indie and alt, type 'indie:alt' in the field. <br>
+</div>
+<br>
+<br>
+<form class="form-horizontal" action="{{ url_for('main') }}" method="POST">
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend>Concert Lineup</legend>
+
+<!-- Text input-->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Max Cost</label>
+    <div class="col-md-4">
+    <input id="textinput" name="maxcost" type="int" placeholder="100" class="form-control input-md">
+    <span class="help-block">Type a number </span>
+    </div>
+</div>
+<br>
+<br>
+<!-- Text input2-->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="textinput2">Max Events to Show</label>
+    <div class="col-md-4">
+    <input id="textinput2" name="x" type="int" placeholder="10" class="form-control input-md">
+    <span class="help-block">Type a number </span>
+    </div>
+</div>
+<br>
+<br>
+<!-- Multiple Checkboxes -->
+<div class="form-group">
+    <label class="col-md-4 control-label" for="checkboxes">Days</label>
+    <div class="col-md-4">
+    <div class="checkbox">
+      <label for="checkboxes-0">
+        <input type="checkbox" name="checkboxes" id="checkboxes-0" value="Mon">
+        Mon
+      </label>
+      </div>
+    <div class="checkbox">
+      <label for="checkboxes-1">
+        <input type="checkbox" name="checkboxes" id="checkboxes-1" value="Tue">
+        Tue
+      </label>
+      </div>
+    <div class="checkbox">
+      <label for="checkboxes-2">
+        <input type="checkbox" name="checkboxes" id="checkboxes-2" value="Wed">
+        Wed
+      </label>
+      </div>
+    <div class="checkbox">
+      <label for="checkboxes-3">
+        <input type="checkbox" name="checkboxes" id="checkboxes-3" value="Thur">
+        Thur
+      </label>
+      </div>
+    <div class="checkbox">
+      <label for="checkboxes-4">
+        <input type="checkbox" name="checkboxes" id="checkboxes-4" value="Fri">
+        Fri
+      </label>
+      </div>
+    <div class="checkbox">
+      <label for="checkboxes-5">
+        <input type="checkbox" name="checkboxes" id="checkboxes-5" value="Sat">
+        Sat
+      </label>
+      </div>
+    <div class="checkbox">
+      <label for="checkboxes-6">
+        <input type="checkbox" name="checkboxes" id="checkboxes-6" value="Sun">
+        Sun
+      </label>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textarea">Genres</label>
+    <div class="col-md-4">
+      <textarea class="form-control" id="textarea" name="genres"></textarea>
+    </div>
+  </div>
+    <br>
+    <br>
+    <input type="submit">
+    </fieldset>
+    </form>
+<br>
+<div class="result" align="center">
+    {% if result %}
+        <h1>Your concert lineup:</h1>
+            {% for show in result %}
+                <h3>{{ show['Artist'] }}</h3>
+                <p><b>Date:</b> {{ show['Date'] }}</p>
+                <p><b>Venue:</b> {{ show['Venue'] }}</p>
+                <p><b>Day:</b> {{ show['Day of Week'] }}</p>
+                <p><b>Cost:</b> {{ show['Cost'] }}</p>
+                <p><b>Related Artists:</b> {{ show['Related Artists'] }}</p>
+                <br>
+            {% endfor %}
+    {% endif %}
+</div>
+<br>
+<br>
+<br>
+Did you like this project? <br>
+Support on <a href="https://patreon.com/user?u=95181784">Patreon</a> <br>
+Check out the code behind the data on <a href="https://github.com/angeolson/Concert-Webscraping">GitHub</a> <br>
+Or, visit my <a href="https://angeolson.com">website</a> for more <br>
+<br>
+<br>
+<br>
+
+</html>
